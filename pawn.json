@@ -1,0 +1,10 @@
+{
+	"user": "Mergevos",
+	"repo": "samp-logging",
+	"entry": "test.pwn",
+	"output": "test.amx",
+	"dependencies": [
+		"sampctl/samp-stdlib",
+		"pawn-lang/YSI-Includes"
+	]
+}
