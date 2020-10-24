@@ -31,7 +31,7 @@ stock Log_Debug(const fmt[], const filename[], line, va_args<>)
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    va_print("%s | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
 }
 
 /*
@@ -52,7 +52,7 @@ stock Log_Info(const fmt[], const filename[], line, va_args<>)
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    va_print("%s | INFO LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s | INFO LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
 }
 
 /*
@@ -73,7 +73,7 @@ stock Log_Error(const fmt[], const filename[], line, va_args<>)
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    va_print("%s | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
 }
 
 /*
@@ -94,7 +94,7 @@ stock Log_Usage(const fmt[], const filename[], line, va_args<>)
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    va_print("%s | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
 }
 
 /*
@@ -119,7 +119,7 @@ stock Log_DebugEx(const fmt[], const filename[], line, const file[], va_args<>)
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    va_print("%s | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
     format(FileStr, sizeof(FileStr), "%s | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s\n", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
     fwrite(Log_File, FileStr);
     fclose(Log_File);
@@ -147,7 +147,7 @@ stock Log_InfoEx(const fmt[], const filename[], line, const file[], va_args<>)
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    va_print("%s | INFO LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s | INFO LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
     format(FileStr, sizeof(FileStr), "%s | INFO LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s\n", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
     fwrite(Log_File, FileStr);
     fclose(Log_File);
@@ -175,7 +175,7 @@ stock Log_ErrorEx(const fmt[], const filename[], line, const file[], va_args<>)
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    va_print("%s | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
     format(FileStr, sizeof(FileStr), "%s | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s\n", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
     fwrite(Log_File, FileStr);
     fclose(Log_File);
@@ -203,7 +203,7 @@ stock Log_UsageEx(const fmt[], const filename[], line, const file[], va_args<>)
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    va_print("%s | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
     format(FileStr, sizeof(FileStr), "%s | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s\n", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
     fwrite(Log_File, FileStr);
     fclose(Log_File);
