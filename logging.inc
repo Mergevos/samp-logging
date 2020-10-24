@@ -1,3 +1,14 @@
+// built-in include guard removal
+// just in case the user has a local dependency with the same file name
+#if defined _inc_logging
+    #undef _inc_logging
+#endif
+// custom include-guard to ensure we don't duplicate
+#if defined _@logging_included
+    #endinput
+#endif
+#define _@logging_included
+
 #include <a_samp>
 #include <YSI_Coding\y_va>
 
