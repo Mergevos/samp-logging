@@ -23,7 +23,7 @@
 stock Log_Debug(const fmt[], const filename[], line, va_args<>)
 {
     new 
-        Str[YSI_MAX_STRING],
+        Str[256],
         Date_Info[3],
         Time_Info[3];
 
@@ -45,7 +45,7 @@ stock Log_Debug(const fmt[], const filename[], line, va_args<>)
 stock Log_Info(const fmt[], const filename[], line, va_args<>)
 {
     new 
-        Str[YSI_MAX_STRING],
+        Str[256],
         Date_Info[3],
         Time_Info[3];
     va_format(Str, sizeof(Str), fmt, va_start<3>);
@@ -66,7 +66,7 @@ stock Log_Info(const fmt[], const filename[], line, va_args<>)
 stock Log_Error(const fmt[], const filename[], line, va_args<>)
 {
     new 
-        Str[YSI_MAX_STRING],
+        Str[256],
         Date_Info[3],
         Time_Info[3];
     va_format(Str, sizeof(Str), fmt, va_start<3>);
@@ -87,7 +87,7 @@ stock Log_Error(const fmt[], const filename[], line, va_args<>)
 stock Log_Usage(const fmt[], const filename[], line, va_args<>)
 {
     new 
-        Str[YSI_MAX_STRING],
+        Str[256],
         Date_Info[3],
         Time_Info[3];
     va_format(Str, sizeof(Str), fmt, va_start<3>);
@@ -109,8 +109,8 @@ stock Log_Usage(const fmt[], const filename[], line, va_args<>)
 stock Log_DebugEx(const fmt[], const filename[], line, const file[], va_args<>)
 {
     new 
-        Str[YSI_MAX_STRING],
-        FileStr[YSI_MAX_STRING],
+        Str[256],
+        FileStr[40],
         Date_Info[3],
         Time_Info[3],
         File: Log_File = fopen(file, io_append);
@@ -137,8 +137,8 @@ stock Log_DebugEx(const fmt[], const filename[], line, const file[], va_args<>)
 stock Log_InfoEx(const fmt[], const filename[], line, const file[], va_args<>)
 {
     new 
-        Str[YSI_MAX_STRING],
-        FileStr[YSI_MAX_STRING],
+        Str[256],
+        FileStr[40],
         Date_Info[3],
         Time_Info[3],
         File: Log_File = fopen(file, io_append);
@@ -165,8 +165,8 @@ stock Log_InfoEx(const fmt[], const filename[], line, const file[], va_args<>)
 stock Log_ErrorEx(const fmt[], const filename[], line, const file[], va_args<>)
 {
     new 
-        Str[YSI_MAX_STRING],
-        FileStr[YSI_MAX_STRING],
+        Str[256],
+        FileStr[40],
         Date_Info[3],
         Time_Info[3],
         File: Log_File = fopen(file, io_append);
@@ -193,8 +193,8 @@ stock Log_ErrorEx(const fmt[], const filename[], line, const file[], va_args<>)
 stock Log_UsageEx(const fmt[], const filename[], line, const file[], va_args<>)
 {
     new 
-        Str[YSI_MAX_STRING],
-        FileStr[YSI_MAX_STRING],
+        Str[256],
+        FileStr[40],
         Date_Info[3],
         Time_Info[3],
         File: Log_File = fopen(file, io_append);
