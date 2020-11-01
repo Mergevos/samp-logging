@@ -126,6 +126,7 @@ stock Logging_Field: Log_Field_x(const field_name[], data)
 //------------------------------------------------------------------
 /*
  * <summary> Logs a debug message</summary>
+ * <param name=handle[]> Debug handle</param>
  * <param name=message[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
@@ -165,6 +166,7 @@ stock Log_Debug(const handle[], const message[], const filename[], line, Logging
 
 /*
  * <summary> Logs an info message</summary>
+ * <param name=handle[]> Debug handle</param>
  * <param name=message[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
@@ -203,6 +205,7 @@ stock Log_Info(const handle[], const message[], const filename[], line, Logging_
 
 /*
  * <summary> Logs an error message</summary>
+ * <param name=handle[]> Debug handle</param>
  * <param name=message[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
@@ -240,6 +243,7 @@ stock Log_Error(const handle[], const message[], const filename[], line, Logging
 
 /*
  * <summary> Logs an usage message</summary>
+ * <param name=handle[]> Debug handle</param>
  * <param name=message[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
