@@ -29,6 +29,7 @@ Log_Debug(const handle[], const message[], const filename[], line, va_args<>)
 ```
 
 ```
+handle[] - Debug handle
 message[] - Text to log
 filename[] - Name of the file being logged
 line - Line which is being logged
@@ -42,6 +43,7 @@ Log_Info(const handle[], const message[], const filename[], line, va_args<>)
 ```
 
 ```
+handle[] - Debug handle
 message[] - Text to log
 filename[] - Name of the file being logged
 line - Line which is being logged
@@ -55,6 +57,7 @@ Log_Error(const handle[], const message[], const filename[], line, va_args<>)
 ```
 
 ```
+handle[] - Debug handle
 message[] - Text to log
 filename[] - Name of the file being logged
 line - Line which is being logged
@@ -68,6 +71,7 @@ Log_Usage(const handle[], const message[], const filename[], line, va_args<>)
 ```
 
 ```
+handle[] - Debug handle
 message[] - Text to log
 filename[] - Name of the file being logged
 line - Line which is being logged
