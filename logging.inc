@@ -1,3 +1,13 @@
+/*
+	* Library: Samp Automatic Kick (advanced_kicks.inc)
+	* Author: Mergevos
+	* Date: 1. Novembre 2020.
+	* Copyright: (C) 2020
+	* Credits: 
+        Southclaws - discord discussions and looping through arguments
+*/
+
+
 // built-in include guard removal
 // just in case the user has a local dependency with the same file name
 #if defined _inc_logging
