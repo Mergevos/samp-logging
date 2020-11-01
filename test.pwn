@@ -1,17 +1,26 @@
 #include <a_samp>
-#include <logging>
+#include "logging.inc"
 
 main()
 {
-    Log_Info("Main", "test.pwn", 6);
+    return;
 }
 
 public OnGameModeInit()
 {
-    Log_Debug("Started On GameMode tetku", "test.pwn", 11);
-    Log_DebugEx("Started On GameMode tetku u guz", "test.pwn", 12, "TestDebugLog.txt");
-    Log_Error("Just for test", "test.pwn", 13);
-    Log_Usage("[Just for test] Command usage /%s [playerid]", "test.pwn", 14, "testcommand");
-    Log_DebugEx("Started On GameMode tetku u guz", "test.pwn", 15, "TestDebugLog.txt");
+    Log_ToggleHandle("test", true); // debug will print, handle on
+    Log_Debug("test", "Started On GameMode tetku", "test.pwn", 11, Log_Field_s("Jebem mamu", "Kurac"), Log_Field_s("Karam prasad", "Pickom mojom"), Log_Field_f("Test Float Num", 54.4),
+        Log_Field_i("Kurac integer", 33), Log_Field_i("Another int", 33223+43*2));
+    
+    Log_Info("test", "Started On GameMode tetku", "test.pwn", 11, Log_Field_s("Jebem mamu", "Kurac"), Log_Field_s("Karam prasad", "Pickom mojom"), Log_Field_f("Test Float Num", 54.4),
+        Log_Field_i("Kurac integer", 33));
+    
+    Log_Error("test", "Started On GameMode tetku", "test.pwn", 11, Log_Field_s("Jebem mamu", "Kurac"), Log_Field_s("Karam prasad", "Pickom mojom"), Log_Field_f("Test Float Num", 54.4),
+        Log_Field_i("Kurac integer", 33));
+
+    Log_ToggleHandle("test", false); // debug will not print, handle off
+    
+    Log_Usage("test", "Started On GameMode tetku", "test.pwn", 11, Log_Field_s("Jebem mamu", "Kurac"), Log_Field_s("Karam prasad", "Pickom mojom"), Log_Field_f("Test Float Num", 54.4),
+        Log_Field_i("Kurac integer", 33), Log_Field_b("Kurac bin", 0), Log_Field_x("Kurac bin", 388));
     return 1;
 }

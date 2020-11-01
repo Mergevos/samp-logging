@@ -10,28 +10,147 @@
 #define _@logging_included
 
 #include <a_samp>
-#include <YSI_Coding\y_va>
 
+#if !defined MAX_FIELDS 
+    #define MAX_FIELDS 64
+#endif
+
+#if !defined MAX_FIELD_SIZE
+    #define MAX_FIELD_SIZE 128
+#endif
+// --------------------------------------
+
+/* 
+ * <summary> Used to toggle debug handle state</summary>
+ * <param name="debug[]">Debug to turn off or on</param>
+ * <param name="bool: on"> State to turn on or off</param>
+ */
+
+stock Log_ToggleHandle(const dbg[], bool: on)
+{
+    return (on != false) ? SetSVarInt(dbg, 1) : SetSVarInt(dbg, 0);
+}
+
+/* 
+ * <summary>Used to get debug handle state</summary>
+ * <param name="debug[]">Debug</param>
+ */ 
+
+stock bool: Log_GetHandleStatus(const dbg[])
+{
+    return GetSVarInt(dbg) != 0 ? true : false;
+}
+
+//-----------------------------------
+/*
+ * <summary> Field representing string</summary>
+ * <param name=field[]> Log field</param>
+ * <param name=data[]> data of field</param>
+ */
+
+stock Logging_Field: Log_Field_s(const field_name[], const data[])
+{
+    static 
+        field[MAX_FIELD_SIZE];
+    format(field, sizeof(field), "Field: %s = \"%s\"", field_name, data);
+    return Logging_Field: field;
+}
+
+/*
+ * <summary> Field representing float</summary>
+ * <param name=field[]> Log field</param>
+ * <param name=data> data of field</param>
+ */
+
+stock Logging_Field: Log_Field_f(const field_name[], Float: data)
+{
+    static 
+        field[MAX_FIELD_SIZE];
+    format(field, sizeof(field), "Field: %s = %f", field_name, data);
+    return Logging_Field: field;
+}
+
+/*
+ * <summary> Field representing integer</summary>
+ * <param name=field[]> Log field</param>
+ * <param name=data> data of field</param>
+ */
+
+stock Logging_Field: Log_Field_i(const field_name[], data)
+{
+    static 
+        field[MAX_FIELD_SIZE];
+    format(field, sizeof(field), "%s = %d", field_name, data);
+    return Logging_Field: field;
+}
+
+/*
+ * <summary> Field representing binary</summary>
+ * <param name=field[]> Log field</param>
+ * <param name=data> data of field</param>
+ */
+
+stock Logging_Field: Log_Field_b(const field_name[], data)
+{
+    static 
+        field[MAX_FIELD_SIZE];
+    format(field, sizeof(field), "%s = %b", field_name, data);
+    return Logging_Field: field;
+}
+
+/*
+ * <summary> Field representing hex</summary>
+ * <param name=field_name[]> Log field</param>
+ * <param name=data> data of field</param>
+ */
+
+stock Logging_Field: Log_Field_x(const field_name[], data)
+{
+    static 
+        field[MAX_FIELD_SIZE];
+    format(field, sizeof(field), "%s = %x", field_name, data);
+    return Logging_Field: field;
+}
+
+
+//------------------------------------------------------------------
 /*
  * <summary> Logs a debug message</summary>
  * <param name=fmt[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
- * <param name=va_args> Other arguments</param>
+ * <param name=Logging_Field:...> Logging fields</param>
  */
 
-stock Log_Debug(const fmt[], const filename[], line, va_args<>)
+stock Log_Debug(const handle[], const fmt[], const filename[], line, Logging_Field: ...)
 {
+
     new 
         Str[256],
         Date_Info[3],
         Time_Info[3];
 
-    va_format(Str, sizeof(Str), fmt, va_start<3>);
+    if(numargs() == 4 || !Log_GetHandleStatus(handle)) {
+        return;
+    }
+
+    for(new args = 4; args < numargs() && args < MAX_FIELDS; ++args) {
+		new 
+            field[MAX_FIELD_SIZE];
+		for(new idx; idx < MAX_FIELD_SIZE; ++idx) {
+			field[idx] = getarg(args, idx);
+			if(field[idx] == EOS) {
+                strcat(Str, " | ");
+				strcat(Str, field);
+				break;
+			}
+		}
+	}
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s [%s] | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], fmt, Str);
+        
 }
 
 /*
@@ -39,20 +158,37 @@ stock Log_Debug(const fmt[], const filename[], line, va_args<>)
  * <param name=fmt[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
- * <param name=va_args> Other arguments</param>
+ * <param name=Logging_Field:...> Logging fields</param>
  */
 
-stock Log_Info(const fmt[], const filename[], line, va_args<>)
+stock Log_Info(const handle[], const fmt[], const filename[], line, Logging_Field: ...)
 {
     new 
         Str[256],
         Date_Info[3],
         Time_Info[3];
-    va_format(Str, sizeof(Str), fmt, va_start<3>);
+
+    if(numargs() == 4 || !Log_GetHandleStatus(handle)) {
+        return;
+    }
+
+    for(new args = 4; args < numargs() && args < MAX_FIELDS; ++args) {
+		new 
+            field[MAX_FIELD_SIZE];
+		for(new idx; idx < MAX_FIELD_SIZE; ++idx) {
+			field[idx] = getarg(args, idx);
+			if(field[idx] == EOS) {
+                strcat(Str, " | ");
+				strcat(Str, field);
+				break;
+			}
+		}
+	}
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s | INFO LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s [%s] | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], fmt, Str);
+     
 }
 
 /*
@@ -60,20 +196,36 @@ stock Log_Info(const fmt[], const filename[], line, va_args<>)
  * <param name=fmt[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
- * <param name=va_args> Other arguments</param>
+ * <param name=Logging_Field:...> Logging fields</param>
  */
 
-stock Log_Error(const fmt[], const filename[], line, va_args<>)
+stock Log_Error(const handle[], const fmt[], const filename[], line, Logging_Field: ...)
 {
     new 
         Str[256],
         Date_Info[3],
         Time_Info[3];
-    va_format(Str, sizeof(Str), fmt, va_start<3>);
+
+    if(numargs() == 4 || !Log_GetHandleStatus(handle)) {
+        return;
+    }
+
+    for(new args = 4; args < numargs() && args < MAX_FIELDS; ++args) {
+		new 
+            field[MAX_FIELD_SIZE];
+		for(new idx; idx < MAX_FIELD_SIZE; ++idx) {
+			field[idx] = getarg(args, idx);
+			if(field[idx] == EOS) {
+                strcat(Str, " | ");
+				strcat(Str, field);
+				break;
+			}
+		}
+	}
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s [%s] | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], fmt, Str);
 }
 
 /*
@@ -81,130 +233,35 @@ stock Log_Error(const fmt[], const filename[], line, va_args<>)
  * <param name=fmt[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
- * <param name=va_args> Other arguments</param>
+ * <param name=Logging_Field:...> Logging fields</param>
  */
 
-stock Log_Usage(const fmt[], const filename[], line, va_args<>)
+stock Log_Usage(const handle[], const fmt[], const filename[], line, Logging_Field: ...)
 {
     new 
         Str[256],
         Date_Info[3],
         Time_Info[3];
-    va_format(Str, sizeof(Str), fmt, va_start<3>);
+
+    if(numargs() == 4 || !Log_GetHandleStatus(handle)) {
+        return;
+    }
+
+    for(new args = 4; args < numargs() && args < MAX_FIELDS; ++args) {
+		new 
+            field[MAX_FIELD_SIZE];
+		for(new idx; idx < MAX_FIELD_SIZE; ++idx) {
+			field[idx] = getarg(args, idx);
+			if(field[idx] == EOS) {
+                strcat(Str, " | ");
+				strcat(Str, field);
+				break;
+			}
+		}
+	}
 
     getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
     gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
+    printf("%s [%s] | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], fmt, Str);
 }
 
-/*
- * <summary> Logs a debug message and outputs it in a file</summary>
- * <param name=fmt[]> Text to log</param>
- * <param name=filename[]> Name of the file being logged</param>
- * <param name=line> Line which is being logged</param>
- * <param name=file[]> Output file for log</param>
- * <param name=va_args> Other arguments</param>
- */
-
-stock Log_DebugEx(const fmt[], const filename[], line, const file[], va_args<>)
-{
-    new 
-        Str[256],
-        FileStr[40],
-        Date_Info[3],
-        Time_Info[3],
-        File: Log_File = fopen(file, io_append);
-    
-    va_format(Str, sizeof(Str), fmt, va_start<4>);
-
-    getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
-    gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
-    format(FileStr, sizeof(FileStr), "%s | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s\n", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
-    fwrite(Log_File, FileStr);
-    fclose(Log_File);
-}
-
-/*
- * <summary> Logs an info message and outputs it in a file</summary>
- * <param name=fmt[]> Text to log</param>
- * <param name=filename[]> Name of the file being logged</param>
- * <param name=line> Line which is being logged</param>
- * <param name=file[]> Output file for log</param>
- * <param name=va_args> Other arguments</param>
- */
-
-stock Log_InfoEx(const fmt[], const filename[], line, const file[], va_args<>)
-{
-    new 
-        Str[256],
-        FileStr[40],
-        Date_Info[3],
-        Time_Info[3],
-        File: Log_File = fopen(file, io_append);
-    
-    va_format(Str, sizeof(Str), fmt, va_start<4>);
-
-    getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
-    gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s | INFO LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
-    format(FileStr, sizeof(FileStr), "%s | INFO LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s\n", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
-    fwrite(Log_File, FileStr);
-    fclose(Log_File);
-}
-
-/*
- * <summary> Logs an error message and outputs it in a file</summary>
- * <param name=fmt[]> Text to log</param>
- * <param name=filename[]> Name of the file being logged</param>
- * <param name=line> Line which is being logged</param>
- * <param name=file[]> Output file for log</param>
- * <param name=va_args> Other arguments</param>
- */
-
-stock Log_ErrorEx(const fmt[], const filename[], line, const file[], va_args<>)
-{
-    new 
-        Str[256],
-        FileStr[40],
-        Date_Info[3],
-        Time_Info[3],
-        File: Log_File = fopen(file, io_append);
-    
-    va_format(Str, sizeof(Str), fmt, va_start<4>);
-
-    getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
-    gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
-    format(FileStr, sizeof(FileStr), "%s | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s\n", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
-    fwrite(Log_File, FileStr);
-    fclose(Log_File);
-}
-
-/*
- * <summary> Logs an usage message and outputs it in a file</summary>
- * <param name=fmt[]> Text to log</param>
- * <param name=filename[]> Name of the file being logged</param>
- * <param name=line> Line which is being logged</param>
- * <param name=file[]> Output file for log</param>
- * <param name=va_args> Other arguments</param>
- */
-
-stock Log_UsageEx(const fmt[], const filename[], line, const file[], va_args<>)
-{
-    new 
-        Str[256],
-        FileStr[40],
-        Date_Info[3],
-        Time_Info[3],
-        File: Log_File = fopen(file, io_append);
-    
-    va_format(Str, sizeof(Str), fmt, va_start<4>);
-
-    getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
-    gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
-    format(FileStr, sizeof(FileStr), "%s | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s\n", filename, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], Str);
-    fwrite(Log_File, FileStr);
-    fclose(Log_File);
-}
