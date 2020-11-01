@@ -126,19 +126,19 @@ stock Logging_Field: Log_Field_x(const field_name[], data)
 //------------------------------------------------------------------
 /*
  * <summary> Logs a debug message</summary>
- * <param name=fmt[]> Text to log</param>
+ * <param name=message[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
  * <param name=Logging_Field:...> Logging fields</param>
  */
 
-stock Log_Debug(const handle[], const fmt[], const filename[], line, Logging_Field: ...)
+stock Log_Debug(const handle[], const message[], const filename[], line, Logging_Field: ...)
 {
 
     new 
-        Str[256],
-        Date_Info[3],
-        Time_Info[3];
+        fieldstring[256],
+        date_Info[3],
+        time_Info[3];
 
     if(numargs() == 4 || !Log_GetHandleStatus(handle)) {
         return;
@@ -150,33 +150,33 @@ stock Log_Debug(const handle[], const fmt[], const filename[], line, Logging_Fie
 		for(new idx; idx < MAX_FIELD_SIZE; ++idx) {
 			field[idx] = getarg(args, idx);
 			if(field[idx] == EOS) {
-                strcat(Str, " | ");
-				strcat(Str, field);
+                strcat(fieldstring, " | ");
+				strcat(fieldstring, field);
 				break;
 			}
 		}
 	}
 
-    getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
-    gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s [%s] | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], fmt, Str);
+    getdate(date_Info[2], date_Info[1], date_Info[0]);
+    gettime(time_Info[2], time_Info[1], time_Info[0]);
+    printf("%s [%s] | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, date_Info[0], date_Info[1], date_Info[2], time_Info[2], time_Info[1], time_Info[0], message, fieldstring);
         
 }
 
 /*
  * <summary> Logs an info message</summary>
- * <param name=fmt[]> Text to log</param>
+ * <param name=message[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
  * <param name=Logging_Field:...> Logging fields</param>
  */
 
-stock Log_Info(const handle[], const fmt[], const filename[], line, Logging_Field: ...)
+stock Log_Info(const handle[], const message[], const filename[], line, Logging_Field: ...)
 {
     new 
-        Str[256],
-        Date_Info[3],
-        Time_Info[3];
+        fieldstring[256],
+        date_Info[3],
+        time_Info[3];
 
     if(numargs() == 4 || !Log_GetHandleStatus(handle)) {
         return;
@@ -188,33 +188,33 @@ stock Log_Info(const handle[], const fmt[], const filename[], line, Logging_Fiel
 		for(new idx; idx < MAX_FIELD_SIZE; ++idx) {
 			field[idx] = getarg(args, idx);
 			if(field[idx] == EOS) {
-                strcat(Str, " | ");
-				strcat(Str, field);
+                strcat(fieldstring, " | ");
+				strcat(fieldstring, field);
 				break;
 			}
 		}
 	}
 
-    getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
-    gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s [%s] | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], fmt, Str);
+    getdate(date_Info[2], date_Info[1], date_Info[0]);
+    gettime(time_Info[2], time_Info[1], time_Info[0]);
+    printf("%s [%s] | DEBUG LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, date_Info[0], date_Info[1], date_Info[2], time_Info[2], time_Info[1], time_Info[0], message, fieldstring);
      
 }
 
 /*
  * <summary> Logs an error message</summary>
- * <param name=fmt[]> Text to log</param>
+ * <param name=message[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
  * <param name=Logging_Field:...> Logging fields</param>
  */
 
-stock Log_Error(const handle[], const fmt[], const filename[], line, Logging_Field: ...)
+stock Log_Error(const handle[], const message[], const filename[], line, Logging_Field: ...)
 {
     new 
-        Str[256],
-        Date_Info[3],
-        Time_Info[3];
+        fieldstring[256],
+        date_Info[3],
+        time_Info[3];
 
     if(numargs() == 4 || !Log_GetHandleStatus(handle)) {
         return;
@@ -226,32 +226,32 @@ stock Log_Error(const handle[], const fmt[], const filename[], line, Logging_Fie
 		for(new idx; idx < MAX_FIELD_SIZE; ++idx) {
 			field[idx] = getarg(args, idx);
 			if(field[idx] == EOS) {
-                strcat(Str, " | ");
-				strcat(Str, field);
+                strcat(fieldstring, " | ");
+				strcat(fieldstring, field);
 				break;
 			}
 		}
 	}
 
-    getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
-    gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s [%s] | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], fmt, Str);
+    getdate(date_Info[2], date_Info[1], date_Info[0]);
+    gettime(time_Info[2], time_Info[1], time_Info[0]);
+    printf("%s [%s] | ERROR LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, date_Info[0], date_Info[1], date_Info[2], time_Info[2], time_Info[1], time_Info[0], message, fieldstring);
 }
 
 /*
  * <summary> Logs an usage message</summary>
- * <param name=fmt[]> Text to log</param>
+ * <param name=message[]> Text to log</param>
  * <param name=filename[]> Name of the file being logged</param>
  * <param name=line> Line which is being logged</param>
  * <param name=Logging_Field:...> Logging fields</param>
  */
 
-stock Log_Usage(const handle[], const fmt[], const filename[], line, Logging_Field: ...)
+stock Log_Usage(const handle[], const message[], const filename[], line, Logging_Field: ...)
 {
     new 
-        Str[256],
-        Date_Info[3],
-        Time_Info[3];
+        fieldstring[256],
+        date_Info[3],
+        time_Info[3];
 
     if(numargs() == 4 || !Log_GetHandleStatus(handle)) {
         return;
@@ -263,15 +263,15 @@ stock Log_Usage(const handle[], const fmt[], const filename[], line, Logging_Fie
 		for(new idx; idx < MAX_FIELD_SIZE; ++idx) {
 			field[idx] = getarg(args, idx);
 			if(field[idx] == EOS) {
-                strcat(Str, " | ");
-				strcat(Str, field);
+                strcat(fieldstring, " | ");
+				strcat(fieldstring, field);
 				break;
 			}
 		}
 	}
 
-    getdate(Date_Info[2], Date_Info[1], Date_Info[0]);
-    gettime(Time_Info[2], Time_Info[1], Time_Info[0]);
-    printf("%s [%s] | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, Date_Info[0], Date_Info[1], Date_Info[2], Time_Info[2], Time_Info[1], Time_Info[0], fmt, Str);
+    getdate(date_Info[2], date_Info[1], date_Info[0]);
+    gettime(time_Info[2], time_Info[1], time_Info[0]);
+    printf("%s [%s] | INCORRECT PARAMS LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, line, date_Info[0], date_Info[1], date_Info[2], time_Info[2], time_Info[1], time_Info[0], message, fieldstring);
 }
 
