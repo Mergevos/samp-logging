@@ -1,5 +1,5 @@
 /*
-	* Library: Samp Automatic Kick (advanced_kicks.inc)
+	* Library: Samp Logging (logging.inc)
 	* Author: Mergevos
 	* Date: 1. Novembre 2020.
 	* Copyright: (C) 2020
