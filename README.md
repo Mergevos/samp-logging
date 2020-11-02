@@ -20,62 +20,55 @@ Include in your code and begin using the library:
 
 ## Usage
 
-There're 4 functions and 4 extended ones. 
+There're 4 functions. Since the last version has had params for line and file name, this one doesn't. 
+File and line are now automatically detected and it returns the full path to the file and line number.
 
-This function logsan info message.
+This function logs an debug message.
 
 ```c
-Log_Debug(const handle[], const message[], const filename[], line, va_args<>)
+Log_Debug(const handle[], const message[], Logging_Fields: ...)
 ```
 
 ```
 handle[] - Debug handle
 message[] - Text to log
-filename[] - Name of the file being logged
-line - Line which is being logged
-va_args - Other arguments
+... - Other arguments (fields)
 ```
 
 This function logs an info message.
 
 ```c
-Log_Info(const handle[], const message[], const filename[], line, va_args<>)
+Log_Info(const handle[], const message[], Logging_Fields: ...)
 ```
 
 ```
 handle[] - Debug handle
 message[] - Text to log
-filename[] - Name of the file being logged
-line - Line which is being logged
-va_args - Other arguments
+... - Other arguments (fields)
 ```
 
 This function logs an error message.
 
 ```c
-Log_Error(const handle[], const message[], const filename[], line, va_args<>)
+Log_Error(const handle[], const message[], Logging_Fields: ...)
 ```
 
 ```
 handle[] - Debug handle
 message[] - Text to log
-filename[] - Name of the file being logged
-line - Line which is being logged
-va_args - Other arguments
+... - Other arguments (fields)
 ```
 
 This function logs an usage message.
 
 ```c
-Log_Usage(const handle[], const message[], const filename[], line, va_args<>)
+Log_Usage(const handle[], const message[], Logging_Fields: ...)
 ```
 
 ```
 handle[] - Debug handle
 message[] - Text to log
-filename[] - Name of the file being logged
-line - Line which is being logged
-va_args - Other arguments
+... - Other arguments (fields)
 ```
 
 
