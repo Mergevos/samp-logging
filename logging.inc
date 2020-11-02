@@ -167,6 +167,6 @@ stock __debug_PP(const filename[], line, const level[], const handle[], const me
 	}
     getdate(date_Info[2], date_Info[1], date_Info[0]);
     gettime(time_Info[2], time_Info[1], time_Info[0]);
-    printf("%s[%s] | %s LINE %d: %02d-%02d-%d %02d:%02d:%02d - %s%s", filename, handle, level, line, date_Info[0], date_Info[1], date_Info[2], time_Info[2], time_Info[1], time_Info[0], message, fieldstring);
+    printf("[%s] | %s: %02d-%02d-%d %02d:%02d:%02d - %s%s > [%s at line %d]", handle, level, date_Info[0], date_Info[1], date_Info[2], time_Info[2], time_Info[1], time_Info[0], message, fieldstring, filename, line);
     
 }
