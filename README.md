@@ -18,6 +18,10 @@ Include in your code and begin using the library:
 #include <logging>
 ```
 
+## Important note
+
+It does need a latest version of the community compiler. You can download it from here: https://github.com/pawn-lang/compiler
+
 ## Usage
 
 There're 4 functions. Since the last version has had params for line and file name, this one doesn't. 
