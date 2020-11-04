@@ -29,7 +29,7 @@
     #define MAX_FIELD_SIZE 128
 #endif
 
-#if !defined __PawnBuild
+#if !defined __file || !defined __line
 	#error I think it's time for you to use community compiler. Get it from https://github.com/pawn-lang/compiler
 #endif
 #define Log_Debug(%0,%1,%2) __debug_PP(__file, __line, "DEBUG", %0, %1, Logging_Field:%2)
