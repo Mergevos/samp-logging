@@ -35,7 +35,7 @@
 #define Log_Debug(%0,%1,%2) __debug_PP(__file, __line, "DEBUG", %0, %1, Logging_Field:%2)
 #define Log_Info(%0,%1,%2) __debug_PP(__file, __line, "INFO", %0, %1, Logging_Field:%2)
 #define Log_Error(%0,%1,%2) __debug_PP(__file, __line, "ERROR", %0, %1, Logging_Field:%2)
-#define Log_Usage(%0,%1,%2) __debug_PP(__file, __line, "INCORECT PARAMS", %0, %1, Logging_Field:%2)
+#define Log_Usage(%0,%1,%2) __debug_PP(__file, __line, "INCORRECT PARAMS", %0, %1, Logging_Field:%2)
 // --------------------------------------
 
 /* 
