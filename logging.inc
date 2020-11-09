@@ -32,10 +32,10 @@
 #if !defined __file || !defined __line
 	#error I think it's time for you to use community compiler. Get it from https://github.com/pawn-lang/compiler
 #endif
-#define Log_Debug(%0,%1,%2) __debug_PP(__file, __line, "DEBUG", %0, %1, Logging_Field:%2)
-#define Log_Info(%0,%1,%2) __debug_PP(__file, __line, "INFO", %0, %1, Logging_Field:%2)
-#define Log_Error(%0,%1,%2) __debug_PP(__file, __line, "ERROR", %0, %1, Logging_Field:%2)
-#define Log_Usage(%0,%1,%2) __debug_PP(__file, __line, "INCORRECT PARAMS", %0, %1, Logging_Field:%2)
+#define Log_Debug(%0,%1) __debug_PP(__file,__line,"DEBUG",%0,%1)
+#define Log_Info(%0,%1) __debug_PP(__file, __line, "INFO", %0, %1)
+#define Log_Error(%0,%1) __debug_PP(__file, __line, "ERROR", %0, %1)
+#define Log_Usage(%0,%1) __debug_PP(__file, __line, "INCORRECT PARAMS", %0, %1)
 // --------------------------------------
 
 /* 
@@ -149,7 +149,7 @@ stock __debug_PP(const filename[], line, const level[], const handle[], const me
         date_Info[3],
         time_Info[3];
 
-    if(numargs() == 5 || !Log_GetHandleStatus(handle)) {
+    if(!Log_GetHandleStatus(handle)) {
         return;
     }
 
