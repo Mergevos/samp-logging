@@ -20,6 +20,7 @@
 #define _@logging_included
 
 #include <a_samp>
+#include <crashdetect>
 
 #if !defined MAX_FIELDS 
     #define MAX_FIELDS 64
@@ -36,6 +37,8 @@
 #define Log_Info(%0,%1) __debug_PP(__file, __line, "INFO", %0, %1)
 #define Log_Error(%0,%1) __debug_PP(__file, __line, "ERROR", %0, %1)
 #define Log_Usage(%0,%1) __debug_PP(__file, __line, "INCORRECT PARAMS", %0, %1)
+#define Log_Fatal(%0,%1) __debug_PP(__file, __line, "FATAL", %0, %1); SendRconCommand("exit")
+#define Log_Verbose(%0,%1) __debug_PP(__file, __line, "VERBOSE", %0, %1); PrintAmxBacktrace()
 // --------------------------------------
 
 /* 
@@ -167,6 +170,6 @@ stock __debug_PP(const filename[], line, const level[], const handle[], const me
 	}
     getdate(date_Info[2], date_Info[1], date_Info[0]);
     gettime(time_Info[2], time_Info[1], time_Info[0]);
-    printf("[%s] | %s: %02d-%02d-%d %02d:%02d:%02d - %s%s > [%s at line %d]", handle, level, date_Info[0], date_Info[1], date_Info[2], time_Info[2], time_Info[1], time_Info[0], message, fieldstring, filename, line);
+    printf("[%s] | %s: %02d-%02d-%d %02d:%02d:%02d - %s%s > [%s:%d]", handle, level, date_Info[0], date_Info[1], date_Info[2], time_Info[2], time_Info[1], time_Info[0], message, fieldstring, filename, line);
     
 }
