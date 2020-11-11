@@ -39,6 +39,18 @@ message[] - Text to log
 ... - Other arguments (fields)
 ```
 
+This function logs a fatal error. It ends server after being executed.
+
+```c
+Log_Fatal(const handle[], const message[], Logging_Fields: ...)
+```
+
+This function logs a verbose message. It outputs amx backtrace via crashdetect.
+
+```c
+Log_Verbose(const handle[], const message[], Logging_Fields: ...)
+```
+
 This function logs an info message.
 
 ```c
